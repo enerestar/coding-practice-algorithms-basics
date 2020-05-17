@@ -10,29 +10,47 @@ public class MergeSort {
 
     public static int[] sort(int[] arr) {
 
+        // Do nothing if arr contains only 1 obj
+        if (arr.length < 2) {
+            return arr;
+        }
+
         int mid = arr.length / 2;
 
-        // For arrays that are odd, we handle with floor on left and ceil on right
+        // For arrays that are odd, we handle with floor on left
         int leftArrlength = (int) Math.floor(mid);
         int rightArrLength = arr.length - leftArrlength;
-        System.out.println(rightArrLength);
 
         int[] arrLeft = new int[leftArrlength];
         System.arraycopy(arr, 0, arrLeft, 0, leftArrlength);
-        System.out.println(Arrays.toString(arrLeft));
 
         int[] arrRight = new int[rightArrLength];
         System.arraycopy(arr, leftArrlength, arrRight, 0, rightArrLength);
-        System.out.println(Arrays.toString(arrRight));
 
-        return new int[]{4,5,6};
+        sort(arrLeft);
+        sort(arrRight);
+
+        merge(arrLeft, arrRight, arr);
+        return arr;
     }
 
-    public int[] mergeSort(int[] arr) {
-        return new int[]{1,2,3};
-    }
+    public static void merge(int[] arrLeft, int[] arrRight, int[] arr) {
 
-    public int[] merge() {
-        return new int[]{2,3,4};
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while(i < arrLeft.length && j < arrRight.length) {
+            if (arrLeft[i] <= arrRight[j]) {
+                arr[k++] = arrLeft[i++];
+            } else {
+                arr[k++] = arrRight[j++];
+            }
+        }
+        while (i < arrLeft.length) {
+            arr[k++] = arrLeft[i++];
+        }
+        while (j < arrRight.length) {
+            arr[k++] = arrRight[j++];
+        }
     }
 }
