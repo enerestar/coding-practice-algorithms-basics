@@ -22,9 +22,9 @@ public class QuickSort {
 
     void sort(int arr[], int low, int high) {
         if (low <high) {
-            // pi isi partitioning index. arr[pi] is now at the right place?
+            // pi is partitioning index. arr[pi] is now at the right place?
             int pi = partition(arr, low, high);
-            // recursively dort elements before and after partition
+            // recursively sort elements before and after partition
             sort(arr, low, pi-1);
             sort(arr, pi +1, high);
         }
