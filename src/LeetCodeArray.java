@@ -23,6 +23,30 @@ public class LeetCodeArray {
         // not to have duplicates
         duplicateZeroInArray(new int[]{1,0,4,5,0,2,3,0,8,9,0,8,7,3});
         duplicateZeroUsingPermutation(new int[]{1,0,4,5,0,2,3,0,8,9,0,8,7,3});
+
+        Cursor c = new Cursor();
+        c.arr = new int[]{0,0,3,4,0,5};
+        int[] newArr = new int[c.arr.length];
+        int[] newArr2 = new int[c.arr.length];
+        while (c.hasNext()) {
+            c.next();
+            newArr[c.to] = c.arr[c.from];
+        }
+        System.out.println(Arrays.toString(newArr));
+        while (c.hasPrevious()) {
+            System.out.println("thisss " + c.from);
+            System.out.println("thisss " + c.to);
+            c.previous();
+//            newArr2[c.to] = newArr[c.to];
+        }
+        System.out.println(Arrays.toString(newArr2));
+    }
+
+    static int[] sortTwoArrays(int[] nums1, int m, int[] nums2, int n) {
+        for (int i = 0; i < nums1.length; i++) {
+
+        }
+        return nums1;
     }
 
     static int[] duplicateZeroUsingPermutation(int[] a) {
@@ -30,21 +54,16 @@ public class LeetCodeArray {
         int[] dupArray = new int[a.length];
         int x = 0;
         int y = 0;
-//        ArrayList<Integer> indexing = new ArrayList<>();
         for (int i = 0; i < a.length; i ++) {
-//            indexing.add(x);
-//            indexing.add(y);
             if (y >= a.length) {
                 break;
             }
             dupArray[y] = a[i];
             if (a[i] == 0) {
-//                indexing.add(x);
                 y ++;
                 if (y >= a.length) {
                     break;
                 }
-//                indexing.add(y);
                 dupArray[y] = a[i];
             }
             x ++;
@@ -61,7 +80,8 @@ public class LeetCodeArray {
                 count ++;
             }
         }
-        for (int i = a.length - count - 1; i >= 0; i--) {
+        int length = a.length -1;
+        for (int i = length - count; i >= 0; i--) {
             // Since we know the number of zeros in array, we can shift the entire
             // array to the back without the last few digits that will be
             // taken over by duplicated zeros
