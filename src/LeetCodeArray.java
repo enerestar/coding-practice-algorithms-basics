@@ -26,20 +26,16 @@ public class LeetCodeArray {
 
         Cursor c = new Cursor();
         c.arr = new int[]{0,0,3,4,0,5};
-        int[] newArr = new int[c.arr.length];
-        int[] newArr2 = new int[c.arr.length];
+        System.out.println("before " + c.from + " " + c.to);
         while (c.hasNext()) {
             c.next();
-            newArr[c.to] = c.arr[c.from];
         }
-        System.out.println(Arrays.toString(newArr));
+        System.out.println("before   " + c.from + " " + c.to);
         while (c.hasPrevious()) {
-            System.out.println("thisss " + c.from);
-            System.out.println("thisss " + c.to);
+            c.arr[c.to] = c.arr[c.from];
             c.previous();
-//            newArr2[c.to] = newArr[c.to];
         }
-        System.out.println(Arrays.toString(newArr2));
+        System.out.println(Arrays.toString(c.arr));
     }
 
     static int[] sortTwoArrays(int[] nums1, int m, int[] nums2, int n) {
