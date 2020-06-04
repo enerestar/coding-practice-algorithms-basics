@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class LeetCodeArray {
 
@@ -19,30 +17,67 @@ public class LeetCodeArray {
         // loop decrement
         howLoopDecrementGoes(new int[]{1,2,3,4,5,6,7,8,9,10});
 
-        // If element at last truncated array is int 0, to handle edge cases
-        // not to have duplicates
+        // Duplicate zero and move right if zero in array
         duplicateZeroInArray(new int[]{1,0,4,5,0,2,3,0,8,9,0,8,7,3});
         duplicateZeroUsingPermutation(new int[]{1,0,4,5,0,2,3,0,8,9,0,8,7,3});
+        duplicateZeroUsingCursor();
 
-        Cursor c = new Cursor();
+        // Merge sorted array
+//        sortTwoArrays(new int[]{1,2,3,0,0,0}, 3, new int[]{2,5,6}, 3);
+//        sortTwoArrays(new int[]{2,3,4,4,9,0,0,0,0,0}, 5, new int[]{1,1,5,6,9}, 5);
+//        sortTwoArrays(new int[]{2,0}, 1, new int[]{1}, 1);
+//        sortTwoArrays(new int[]{0}, 0, new int[]{1}, 1);
+//        sortTwoArrays(new int[]{1}, 1, new int[]{0}, 0);
+
+        sortTwoArraysUsingCursor();
+    }
+
+    static int[] sortTwoArraysUsingCursor() {
+        CursorSortTwoArrays c = new CursorSortTwoArrays();
+        c.arr1 = new int[]{2,3,4,4,9,0,0,0,0,0};
+        c.m = 5;
+        c.arr2 = new int[]{1,1,5,6,9};
+        c.n = 5;
+        c.arr1Length = c.arr1.length - 1;
+        while(c.hasPrevious()) {
+            c.previous();
+        }
+        return new int[]{0};
+    }
+
+    static int[] sortTwoArrays(int[] nums1, int m, int[] nums2, int n) {
+        int first = m - 1;
+        int second = n - 1;
+        for (int i = nums1.length - 1; i >= 0; i--) {
+            if (second < 0 || first < 0) {
+                break;
+            }
+            if (nums1[first] > nums2[second]) {
+                System.out.println("here");
+                nums1[i] = nums1[first];
+                nums1[i-1] = nums2[second];
+                first--;
+            } else {
+                nums1[i] = nums2[second];
+//                nums1[i-1] = num
+                second--;
+            }
+        }
+        System.out.println(Arrays.toString(nums1));
+        return nums1;
+    }
+
+    static int[] duplicateZeroUsingCursor() {
+        CursorDuplicateZero c = new CursorDuplicateZero();
         c.arr = new int[]{0,0,3,4,0,5};
-        System.out.println("before " + c.from + " " + c.to);
         while (c.hasNext()) {
             c.next();
         }
-        System.out.println("before   " + c.from + " " + c.to);
         while (c.hasPrevious()) {
             c.arr[c.to] = c.arr[c.from];
             c.previous();
         }
-        System.out.println(Arrays.toString(c.arr));
-    }
-
-    static int[] sortTwoArrays(int[] nums1, int m, int[] nums2, int n) {
-        for (int i = 0; i < nums1.length; i++) {
-
-        }
-        return nums1;
+        return c.arr;
     }
 
     static int[] duplicateZeroUsingPermutation(int[] a) {

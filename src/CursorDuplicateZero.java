@@ -1,4 +1,4 @@
-public class Cursor {
+public class CursorDuplicateZero {
 
     int from = 0;
     int to = 0;
@@ -26,7 +26,6 @@ public class Cursor {
                 this.isPreviousInToArrElemZero = true;
             }
         }
-        System.out.println("previous " + this.from + " " + this.to);
     }
 
     public boolean hasNext() {
@@ -48,6 +47,5 @@ public class Cursor {
                 this.isPreviousInToArrElemZero = false;
             }
         }
-        System.out.println("next " + this.from + " " + this.to);
     }
 }
