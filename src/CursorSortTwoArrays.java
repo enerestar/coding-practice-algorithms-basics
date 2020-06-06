@@ -4,33 +4,29 @@ public class CursorSortTwoArrays {
 
     int[] arr1;
     int[] arr2;
-    int m;
-    int n;
-    int arr1Length;
+    Integer mIndex;
+    Integer nIndex;
+    int arr1Index;
 
     public boolean hasPrevious() {
-        return this.arr1Length > 0;
+        return this.arr1Index > -1;
     }
 
     public void previous() {
-        if (this.m == 0) {
-            System.out.println(this.n - 1);
-            System.out.println(this.arr1Length - 1);
-            this.arr1[this.arr1Length - 1] = this.arr2[this.n - 1];
-            this.n--;
+        if (mIndex == -1 && nIndex != -1) {
+            nIndex--;
         }
-        if (this.m > 0) {
-            if (this.arr1[this.m - 1] > this.arr2[this.n - 1]) {
-                this.arr1[this.arr1Length] = this.arr1[this.m - 1];
-                this.arr1[this.arr1Length - 1] = this.arr2[this.n - 1];
-                this.m--;
+        if (mIndex != -1 && nIndex == -1) {
+            mIndex--;
+        }
+        if (mIndex >= 0 && nIndex >= 0) {
+            if (this.arr1[mIndex] > this.arr2[nIndex]) {
+                mIndex--;
             } else {
-                this.arr1[this.arr1Length] = this.arr2[this.n - 1];
-                this.arr1[this.arr1Length - 1] = this.arr1[this.m - 1];
-                this.n--;
+                nIndex--;
             }
-            this.arr1Length--;
         }
-        System.out.println(Arrays.toString(this.arr1));
+        this.arr1Index--;
     }
+
 }

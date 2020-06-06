@@ -29,19 +29,33 @@ public class LeetCodeArray {
 //        sortTwoArrays(new int[]{0}, 0, new int[]{1}, 1);
 //        sortTwoArrays(new int[]{1}, 1, new int[]{0}, 0);
 
-        sortTwoArraysUsingCursor();
+        sortTwoArraysUsingCursor(new int[]{2,3,4,4,8,9,0,0,0,0,0,0},6,new int[]{1,1,1,5,6,9},6);
     }
 
-    static int[] sortTwoArraysUsingCursor() {
+    static int[] sortTwoArraysUsingCursor(int[] arr1, int m, int[] arr2, int n) {
         CursorSortTwoArrays c = new CursorSortTwoArrays();
-        c.arr1 = new int[]{2,3,4,4,9,0,0,0,0,0};
-        c.m = 5;
-        c.arr2 = new int[]{1,1,5,6,9};
-        c.n = 5;
-        c.arr1Length = c.arr1.length - 1;
+        c.arr1 = arr1;
+        c.mIndex = m - 1;
+        c.arr2 = arr2;
+        c.nIndex = n - 1;
+        c.arr1Index = c.arr1.length - 1;
         while(c.hasPrevious()) {
             c.previous();
+            if (c.mIndex == -1 && c.nIndex != -1) {
+                c.arr1[c.arr1Index] = c.arr2[c.nIndex];
+            }
+            if (c.mIndex != -1 && c.nIndex == -1) {
+                c.arr1[c.arr1Index] = c.arr1[c.mIndex];
+            }
+            if (c.mIndex >= 0 && c.nIndex >= 0) {
+                if (c.arr1[c.mIndex] > c.arr2[c.nIndex]) {
+                    c.arr1[c.arr1Index] = c.arr1[c.mIndex];
+                } else {
+                    c.arr1[c.arr1Index] = c.arr2[c.nIndex];
+                }
+            }
         }
+        System.out.println(Arrays.toString(c.arr1));
         return new int[]{0};
     }
 
