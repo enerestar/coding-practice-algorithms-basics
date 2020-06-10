@@ -27,7 +27,6 @@ public class CursorSortTwoArrays {
             }
         }
         this.arr1Index--;
-        System.out.println(Arrays.toString(this.arr1));
     }
 
 }

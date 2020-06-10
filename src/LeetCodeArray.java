@@ -1,8 +1,15 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LeetCodeArray {
 
     public static void main(String[] args) {
+
+        /**  Array Introduction */
         // given an array, find the longest consecutive ones
         findMaxConsecutiveOnes(new int[]{1,0,1,1,0,1});
 
@@ -28,8 +35,81 @@ public class LeetCodeArray {
 //        sortTwoArrays(new int[]{2,0}, 1, new int[]{1}, 1);
 //        sortTwoArrays(new int[]{0}, 0, new int[]{1}, 1);
 //        sortTwoArrays(new int[]{1}, 1, new int[]{0}, 0);
-
         sortTwoArraysUsingCursor(new int[]{1,2,3,0,0,0},3, new int[]{2,5,6},3);
+
+
+        /** Array Deletion */
+        int[] nums = new int[]{2};
+        int val = 3;
+        removeElementsInArrayUsingCollection(val, nums);
+        removeElementsInArrayUsingCursor(val, nums);
+
+        int[] numsRemoveDups = new int[]{0,0,1,1,1,2,2,3,3,4};
+        removeDuplicatesFromSortedArray(numsRemoveDups);
+
+        /** Searching an Array */
+
+    }
+
+    static int removeDuplicatesFromSortedArray(int[] nums) {
+        int from = 0;
+        int to = 0;
+        int count = 0;
+        sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if ((from + 1) == nums.length) {
+                nums[to] = nums[from];
+                count++;
+            }
+            else if (nums[from] != nums[from + 1]) {
+                nums[to] = nums[from];
+                count++;
+                to++;
+                from++;
+            } else {
+                from++;
+            }
+        }
+//        System.out.println(count);
+//        System.out.println(Arrays.toString(nums));
+        return count;
+    }
+
+
+    static int removeElementsInArrayUsingCursor(int val, int[] nums) {
+        int arrLength = nums.length;
+        int from = 0;
+        int to = 0;
+        int count = 0;
+        while(from < arrLength) {
+            if (nums[from] != val) {
+                nums[to] = nums[from];
+                from++;
+                to++;
+                count++;
+            } else {
+                from++;
+            }
+        }
+//        System.out.println(Arrays.toString(nums));
+//        System.out.println(count);
+        return count;
+    }
+
+    static int removeElementsInArrayUsingCollection(int val, int[] nums) {
+        Instant start = Instant.now();
+        Integer[] data = Arrays.stream( nums ).boxed().toArray( Integer[]::new );
+        Collection<Integer> collection = Arrays.asList(data);
+        Collection<Integer> result = collection.stream()
+                .filter(e -> e != val)
+                .collect(Collectors.toList());
+
+        Instant finish = Instant.now();
+        long timeElapsed = Duration.between(start, finish).toMillis();
+//        System.out.println("Time: " + timeElapsed + "ms");
+//        System.out.println(Arrays.toString(nums));
+//        System.out.println(result.size());
+        return result.size();
     }
 
     static int[] sortTwoArraysUsingCursor(int[] arr1, int m, int[] arr2, int n) {
@@ -62,7 +142,6 @@ public class LeetCodeArray {
                 break;
             }
             if (nums1[first] > nums2[second]) {
-                System.out.println("here");
                 nums1[i] = nums1[first];
                 nums1[i-1] = nums2[second];
                 first--;
@@ -143,12 +222,9 @@ public class LeetCodeArray {
         // i-- is just looping decrementally ie 9,8,7,6
         int lengthOfArray = arr.length - 1;
         for (int i = lengthOfArray - 1; i >= 0; i--) {
-//            System.out.println("i " + i);
             arr[i +1] = arr[i];
-//            System.out.println("Loop " + Arrays.toString(arr));
         }
         arr[0] = 30;
-//        System.out.println("End " + Arrays.toString(arr));
         return arr;
     }
 
