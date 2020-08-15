@@ -1,7 +1,8 @@
+package leetcode;
+
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,7 +49,138 @@ public class LeetCodeArray {
         removeDuplicatesFromSortedArray(numsRemoveDups);
 
         /** Searching an Array */
+//        int[] numsCheckDouble = new int[]{1,10,5,2};
+//        int[] numsCheckDouble = new int[]{3,1,7,11};
+        int[] numsCheckDouble = new int[]{-2,0,10,-19,4,6,-8};
+//        new int[]{0,0};
+        // checkNAndItsDoubleExists(numsCheckDouble);
+        // checkNAndItsDoubleExistsWithHashtable(numsCheckDouble);
 
+        int[] numsT = new int[]{3,1,7,11};
+        int target = 10;
+        twoSums(numsT, target);
+
+
+//        Node n3 = addNode(3,null);
+//        Node n2 = addNode(4, n3);
+        Node n1 = addNode(5, null);
+//        Node n6 = addNode(4,null);
+//        Node n5 = addNode(6, n6);
+        Node n4 = addNode(5, null);
+        Node node = addTwoNumbers(n1, n4);
+    }
+
+
+    public static class Node {
+        int val;
+        Node next;
+
+        Node(int val, Node next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    static Node addNode(int val, Node node) {
+        return new Node(val, node);
+    }
+
+    static Node carryOn(Node n1, Node n2) {
+        int sum;
+        int carry = 0;
+        Node n;
+        Node L3H = null;
+        Node L3T = null;
+        while (n1 != null || n2 != null) {
+            int d1 = 0;
+            int d2 = 0;
+            if (n1 != null) {
+                d1 = n1.val;
+                n1 = n1.next;
+            }
+            if (n2 != null) {
+                d2 = n2.val;
+                n2 = n2.next;
+            }
+            sum = d1 + d2 + carry;
+            carry = sum/10;
+            int d3 = sum%10;
+            n = new Node(d3, null);
+            if (L3H == null) {
+                L3H = n;
+                L3T = n;
+            } else {
+                L3T.next = n;
+                L3T = L3T.next;
+            }
+        }
+        if (carry != 0) {
+            L3T.next = new Node(carry, null);
+        }
+        return L3H;
+    }
+
+    static Node addTwoNumbers(Node n1, Node n2) {
+        Node n3 = carryOn(n1, n2);
+        while (n3 != null) {
+            System.out.println(n3.val);
+            n3 = n3.next;
+        }
+        return n3;
+    }
+
+    
+    static int[] twoSums(int[] nums, int target) {
+        HashMap<Integer, Integer> seen = new HashMap<>();
+        int x;
+        for (int i = 0; i < nums.length; i++) {
+            x = nums[i];
+            if (seen.containsKey(target - x)) {
+                int x2 = target - x;
+                return new int[]{seen.get(x2), i};
+            } else {
+                seen.put(x, i);
+            }
+        }
+        return null;
+    }
+
+    static boolean checkNAndItsDoubleExistsWithHashtable(int[] nums) {
+        Hashtable<Integer, Integer> hashtable = new Hashtable<>();
+        int i = 0;
+        while (i < nums.length) {
+            hashtable.put(nums[i], 0);
+            i++;
+        }
+        for (int j = 0; j < nums.length; j++) {
+            int M = nums[j];
+            System.out.println("M " + M);
+            System.out.println("M1 " + hashtable.contains(M/2));
+            System.out.println("M2 " + (M%2 == 0));
+            if (M%2 == 0 && hashtable.contains(M/2)) {
+                System.out.println("true");
+                return true;
+            }
+            if (hashtable.contains(M*2)) {
+                System.out.println("truev");
+                return true;
+            }
+        }
+        System.out.println("false");
+        return false;
+    }
+
+    static boolean checkNAndItsDoubleExists(int[] nums){
+        for(int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                int N = nums[i];
+                int M = nums[j];
+                if (i != j && (N == 2*M || 2 * N == M)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     static int removeDuplicatesFromSortedArray(int[] nums) {

@@ -1,3 +1,5 @@
+package leetcode;
+
 public class CursorDuplicateZero {
 
     int from = 0;

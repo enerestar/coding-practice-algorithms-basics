@@ -1,3 +1,5 @@
+package algorithms;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -5,16 +7,16 @@ import java.util.List;
 public class BubbleSort {
 
     public static void main(String[] args) {
-        System.out.println("BubbleSort");
+        System.out.println("sorting_algo.BubbleSort");
         int[] arr = new int[]{3,2,1,4,5,3};
-//        BubbleSort bubbleSort = new BubbleSort();
-//        bubbleSort.BubbleSort(arr);
+//        sorting_algo.BubbleSort bubbleSort = new sorting_algo.BubbleSort();
+//        bubbleSort.sorting_algo.BubbleSort(arr);
 //        bubbleSort.printArray(arr);
         BubbleSort.BubbleSortCS(arr);
         BubbleSort.sortingWithMaximumBribes(arr);
-//        BubbleSort.BubbleSort(arr);
+//        sorting_algo.BubbleSort.sorting_algo.BubbleSort(arr);
         System.out.println("Sorting array");
-//        BubbleSort.printArray(arr);
+//        sorting_algo.BubbleSort.printArray(arr);
     }
 
     private static void BubbleSort(int[] arr) {
